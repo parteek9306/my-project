@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Muscle Up Gym</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    /* WHATSAPP FLOAT BUTTON */
+.whatsapp-float{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:#25D366;
+    color:white;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    box-shadow:0 0 20px rgba(37,211,102,0.6);
+    z-index:5000;
+    transition:0.3s;
+    text-decoration:none;
+}
+
+.whatsapp-float:hover{
+    transform:scale(1.1);
+}
+
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* COLORS */
+:root{
+    --green:#00ff66;
+    --dark:#0a0a0a;
+}
+
+/* BODY */
+body{
+    background:var(--dark);
+    color:white;
+    scroll-behavior:smooth;
+    background-image:url('gym1.jpg');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:70px;
+    background:rgba(0,0,0,0.92);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 60px;
+    z-index:1000;
+    border-bottom:1px solid rgba(0,255,102,0.2);
+}
+
+/* LOGO */
+nav h1{
+    color:var(--green);
+    letter-spacing:2px;
+    font-size:1.6rem;
+    text-shadow:0 0 10px rgba(0,255,102,0.4);
+}
+
+/* MENU */
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:35px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+    position:relative;
+    transition:0.3s;
+}
+
+/* underline animation */
+nav ul li a::after{
+    content:'';
+    position:absolute;
+    width:0%;
+    height:2px;
+    background:var(--green);
+    left:0;
+    bottom:-6px;
+    transition:0.4s;
+}
+
+nav ul li a:hover{
+    color:var(--green);
+}
+
+nav ul li a:hover::after{
+    width:100%;
+}
+
+/* RIGHT BUTTON CONTAINER */
+.nav-buttons{
+    display:flex;
+    gap:12px;
+}
+
+/* NAV BUTTON STYLE */
+.nav-buttons .btn{
+    padding:7px 18px;
+    border-radius:25px;
+    background:transparent;
+    border:2px solid var(--green);
+    color:var(--green);
+    font-weight:600;
+    cursor:pointer;
+    transition:0.35s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+/* hover glow */
+.nav-buttons .btn:hover{
+    background:var(--green);
+    color:black;
+    box-shadow:0 0 15px rgba(0,255,102,0.7);
+    transform:translateY(-2px);
+}
+
+/* click animation */
+.nav-buttons .btn:active{
+    transform:scale(0.95);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    nav{
+        flex-wrap:wrap;
+        height:auto;
+        padding:10px 20px;
+    }
+
+    nav ul{
+        width:100%;
+        justify-content:center;
+        margin:10px 0;
+    }
+
+    .nav-buttons{
+        width:100%;
+        justify-content:center;
+        margin-bottom:10px;
+    }
+}
+
+/* SECTIONS */
+section{
+    padding:120px 60px;
+    min-height:100vh;
+    background:rgba(0,0,0,0.75);
+}
+/* BACKGROUND VIDEO */
+.bg-video{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1;
+}
+
+/* HOME FIX */
+.home{
+    position:relative;
+    overflow:hidden;
+}
+.video-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    z-index:-1;
+}
+
+/* HOME */
+.home{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.home h2{
+    font-size:3rem;
+    color:var(--green);
+}
+
+.home p{
+    max-width:600px;
+    margin-top:15px;
+    color:#ccc;
+}
+
+/* ABOUT / SERVICES / GALLERY */
+.about, .services, .gallery{
+    background:rgba(0,0,0,0.85);
+}
+/* ABOUT SECTION */
+.about{
+    background:rgba(0,0,0,0.85);
+    text-align:center;
+}
+
+.about h2{
+    color:var(--green);
+    margin-bottom:20px;
+}
+
+.about-wrapper{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+/* TEXT */
+.about-text p{
+    color:#ccc;
+    line-height:1.7;
+    margin-bottom:18px;
+    font-size:1rem;
+}
+
+/* BENEFITS LIST */
+.benefits{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:20px;
+}
+
+.benefit-item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    color:#ddd;
+    font-size:0.95rem;
+    transition:0.3s;
+}
+
+.benefit-item span{
+    color:var(--green);
+    font-size:1.2rem;
+}
+
+.benefit-item:hover{
+    transform:translateX(6px);
+    color:white;
+}
+
+/* TRAINER NOTE */
+.trainer-note{
+    background:#000;
+    border-left:4px solid var(--green);
+    padding:25px;
+    border-radius:10px;
+    text-align:left;
+    box-shadow:0 0 20px rgba(0,255,102,0.15);
+    animation:fadeUp 1s ease;
+}
+
+.trainer-note h3{
+    color:var(--green);
+    margin-bottom:10px;
+}
+
+.trainer-note p{
+    color:#ccc;
+    font-size:0.95rem;
+    line-height:1.6;
+}
+
+/* SUBTLE ANIMATION */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .about-wrapper{
+        grid-template-columns:1fr;
+    }
+    .benefits{
+        grid-template-columns:1fr;
+    }
+}
+
+
+/* SERVICES SECTION */
+.services{
+    background:rgba(0,0,0,0.85);
+    text-align:center;
+}
+
+.services h2{
+    color:var(--green);
+    margin-bottom:10px;
+}
+
+.services-box{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+    margin-top:40px;
+}
+/* SERVICE POPUP */
+.service-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    justify-content:center;
+    align-items:center;
+    z-index:3000;
+}
+
+.service-modal-content{
+    background:#000;
+    border:2px solid var(--green);
+    border-radius:15px;
+    padding:30px;
+    width:90%;
+    max-width:450px;
+    text-align:left;
+    position:relative;
+    animation:popupFade 0.4s ease;
+}
+
+.service-modal-content h3{
+    color:var(--green);
+    margin-bottom:10px;
+}
+
+.service-modal-content p{
+    color:#ccc;
+    line-height:1.6;
+    font-size:0.95rem;
+}
+
+.close-modal{
+    position:absolute;
+    top:12px;
+    right:15px;
+    font-size:1.2rem;
+    color:red;
+    cursor:pointer;
+}
+
+/* BUTTON */
+.learn-btn{
+    margin-top:15px;
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:20px;
+    border:2px solid var(--green);
+    color:var(--green);
+    background:transparent;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.learn-btn:hover{
+    background:var(--green);
+    color:black;
+}
+
+/* ANIMATION */
+@keyframes popupFade{
+    from{
+        opacity:0;
+        transform:scale(0.85);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* SERVICE CARD */
+.service-card{
+    background:#000;
+    padding:30px 25px;
+    border-radius:15px;
+    border:1px solid #222;
+    transition:0.4s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.service-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(0,255,102,0.35);
+}
+
+/* ICON */
+.service-icon{
+    font-size:2.5rem;
+    margin-bottom:15px;
+}
+.service-features{
+    margin-top:12px;
+    text-align:left;
+}
+
+.service-features li{
+    list-style:none;
+    font-size:0.9rem;
+    color:#ccc;
+    margin-bottom:6px;
+    position:relative;
+    padding-left:18px;
+}
+
+.service-features li::before{
+    content:"✔";
+    position:absolute;
+    left:0;
+    color:var(--green);
+    font-size:0.8rem;
+}
+
+.learn-btn{
+    margin-top:18px;
+    display:inline-block;
+    padding:9px 20px;
+    border-radius:22px;
+    border:2px solid var(--green);
+    color:var(--green);
+    background:transparent;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    text-decoration:none;
+}
+
+.learn-btn:hover{
+    background:var(--green);
+    color:black;
+    box-shadow:0 0 15px rgba(0,255,102,0.6);
+}
+
+/* TITLE */
+.service-card h3{
+    color:var(--green);
+    margin-bottom:10px;
+}
+
+/* DESCRIPTION */
+.service-card p{
+    color:#ccc;
+    font-size:0.95rem;
+    line-height:1.6;
+}
+.extra-info{
+    display:none;
+    margin-top:10px;
+    color:#ccc;
+    font-size:0.9rem;
+}
+.extra-info.show{
+    display:block;
+}
+
+
+/* FEE STRUCTURE */
+.fees{
+    background:rgba(0,0,0,0.9);
+    text-align:center;
+}
+
+.fee-box{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+/* BADGE */
+.badge{
+    position:absolute;
+    top:15px;
+    right:-40px;
+    background:var(--green);
+    color:black;
+    font-size:0.75rem;
+    font-weight:800;
+    padding:6px 45px;
+    transform:rotate(45deg);
+    box-shadow:0 0 15px rgba(0,255,102,0.7);
+}
+
+
+.fee-card{
+    position:relative;
+    background:rgba(0,0,0,0.85);
+    border:2px solid rgba(0,255,102,0.6);
+    border-radius:18px;
+    padding:35px 40px;
+    width:260px;
+    transition:0.5s ease;
+    overflow:hidden;
+    backdrop-filter: blur(6px);
+}
+/* SAVE TEXT */
+.save-text{
+    font-size:0.85rem;
+    color:var(--green);
+    margin-top:8px;
+    font-weight:700;
+    letter-spacing:0.5px;
+}
+
+/* JOIN BUTTON */
+.join-btn{
+    display:inline-block;
+    margin-top:18px;
+    padding:10px 22px;
+    border-radius:25px;
+    background:transparent;
+    color:var(--green);
+    border:2px solid var(--green);
+    font-weight:700;
+    text-decoration:none;
+    transition:0.4s;
+}
+
+.join-btn:hover{
+    background:var(--green);
+    color:black;
+    box-shadow:0 0 20px rgba(0,255,102,0.7);
+}
+
+/* MOBILE TAP SUPPORT */
+.fee-card:active{
+    transform:scale(0.97);
+    box-shadow:0 0 30px rgba(0,255,102,0.5);
+}
+
+
+/* GRADIENT SHINE EFFECT */
+.fee-card::before{
+    content:'';
+    position:absolute;
+    top:-100%;
+    left:-100%;
+    width:200%;
+    height:200%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(0,255,102,0.25),
+        transparent
+    );
+    transform:rotate(25deg);
+    transition:0.7s;
+}
+
+/* HOVER EFFECT */
+.fee-card:hover::before{
+    top:100%;
+    left:100%;
+}
+
+.fee-card:hover{
+    transform:translateY(-14px) scale(1.05);
+    box-shadow:
+        0 15px 30px rgba(0,255,102,0.25),
+        0 0 40px rgba(0,255,102,0.35);
+    border-color:var(--green);
+}
+
+/* TEXT STYLING */
+.fee-card h3{
+    color:var(--green);
+    font-size:1.6rem;
+    margin-bottom:12px;
+}
+
+.fee-card p{
+    font-size:1.25rem;
+    color:#ddd;
+    font-weight:600;
+}
+
+
+
+
+/* GALLERY */
+.gallery-box{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.gallery-box div{
+    border-radius:10px;
+    overflow:hidden;
+    border:2px solid var(--green);
+}
+
+.gallery-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* LOGIN MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+.modal-content{
+    background:black;
+    padding:30px;
+    border-radius:10px;
+    width:300px;
+}
+
+.modal-content input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    outline:none;
+}
+
+.close{
+    float:right;
+    cursor:pointer;
+    color:red;
+}
+
+/* FOOTER */
+footer{
+    background:#000;
+    padding:40px 60px;
+    text-align:center;
+    border-top:2px solid var(--green);
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.footer-box h3{
+    color:var(--green);
+    margin-bottom:15px;
+}
+
+.footer-box p, 
+.footer-box a{
+    color:#ccc;
+    font-size:0.95rem;
+    text-decoration:none;
+    line-height:1.6;
+}
+
+.footer-box a:hover{
+    color:var(--green);
+}
+
+.footer-bottom{
+    margin-top:30px;
+    border-top:1px solid #222;
+    padding-top:15px;
+    color:#777;
+    font-size:0.85rem;
+}
+.fee-box{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+.whatsapp-float{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    background:#25D366;
+    color:white;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    box-shadow:0 0 20px rgba(37,211,102,0.6);
+    z-index:5000;
+    transition:0.3s;
+    text-decoration:none;
+}
+.demo-btn{
+    position:fixed;
+    bottom:110px; /* 👈 moved up */
+    right:25px;
+    padding:12px 22px;
+    border-radius:30px;
+    background:linear-gradient(45deg,#00ff66,#66ff99);
+    color:black;
+    font-weight:700;
+    box-shadow:0 0 20px var(--green);
+    z-index:4000;
+    animation:bounce 3s alternate infinite;
+    text-decoration:none;
+}
+.demo-btn:hover{
+    animation:none;
+    transform:scale(1.08);
+}
+.demo-btn{
+    position:fixed;
+    bottom:30px;
+    left:25px;          /* 👈 moved to left */
+    right:auto;         /* 👈 disable right */
+    padding:12px 22px;
+    border-radius:30px;
+    background:linear-gradient(45deg,#00ff66,#66ff99);
+    color:black;
+    font-weight:700;
+    box-shadow:0 0 20px var(--green);
+    z-index:4000;
+    animation:bounce 3s alternate infinite;
+    text-decoration:none;
+}
+.demo-btn:hover{
+    animation:none;
+    transform:scale(1.08);
+}
+/* HORIZONTAL SERVICES LIKE FEE STRUCTURE */
+.services-container{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    margin-top:40px;
+    flex-wrap:wrap;   /* Responsive */
+}
+
+/* Equal width like fee cards */
+.service-card{
+    width:280px;
+}
+/* SERVICES HORIZONTAL FIX */
+.services-container{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.service-card{
+    width: 280px;
+}
+
+/* Hidden extra info */
+.extra-info{
+    display: none;
+    margin-top: 10px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.extra-info.show{
+    display: block;
+}
+/* NAV BUTTON RESPONSIVE */
+@media(max-width:768px){
+nav{
+padding:0 20px;
+flex-wrap:wrap;
+height:auto;
+gap:10px;
+}
+}
+nav ul{
+    width:100%;
+    justify-content:center;
+    gap:18px;
+    margin:8px 0;
+}
+
+.login-btn{
+    padding:6px 14px;
+    font-size:14px;
+}
+/* Service Card Hover Effects */
+.service-card{
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Lift + Shadow Effect */
+.service-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+/* Icon Animation on Hover */
+.service-card:hover .service-icon{
+    transform: scale(1.15);
+    transition: 0.3s;
+}
+
+/* Button Hover Effect */
+.service-card .learn-btn{
+    transition: 0.3s;
+}
+
+.service-card .learn-btn:hover{
+    background: #00ff88; /* change if you use another theme color */
+    color: #000;
+    transform: scale(1.05);
+}
+
+/* Smooth Features Animation */
+.service-card ul li{
+    transition: 0.3s;
+}
+
+.service-card:hover ul li{
+    transform: translateX(5px);
+}
+
+/* LOGIN / REGISTER RESPONSIVE FIX */
+@media(max-width:768px){
+
+    /* Navbar layout */
+    nav{
+        flex-direction:column;
+        align-items:center;
+        padding:10px;
+        height:auto;
+    }
+
+    /* Menu center */
+    nav ul{
+        width:100%;
+        justify-content:center;
+        margin:8px 0;
+        gap:18px;
+    }
+
+    /* Buttons container */
+    .nav-buttons{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:10px;
+        margin-top:5px;
+    }
+
+    /* Buttons full width on small screens */
+    .nav-buttons .btn{
+        flex:1 1 120px;
+        text-align:center;
+        padding:8px 0;
+        font-size:14px;
+    }
+
+    /* Welcome panel responsive */
+    #userPanel{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:10px;
+        margin-top:5px;
+    }
+
+    #welcomeUser{
+        width:100%;
+        text-align:center;
+        font-size:14px;
+    }
+}
+/* ================================
+   LOGIN / REGISTER MODAL DESIGN
+================================ */
+
+/* Modal background blur effect */
+.modal{
+    backdrop-filter: blur(6px);
+    animation: fadeInModal 0.3s ease;
+}
+
+/* Modal box styling */
+.modal-content{
+    background: linear-gradient(145deg, #000, #0f0f0f);
+    border: 2px solid var(--green);
+    border-radius: 15px;
+    width: 320px;
+    padding: 30px 25px;
+    box-shadow: 
+        0 0 25px rgba(0,255,102,0.25),
+        inset 0 0 10px rgba(0,255,102,0.1);
+    animation: scaleModal 0.3s ease;
+    position: relative;
+}
+
+/* Title */
+.modal-content h3{
+    text-align: center;
+    color: var(--green);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Input fields */
+.modal-content input{
+    width: 100%;
+    padding: 11px 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #222;
+    background: #000;
+    color: #fff;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Input focus glow */
+.modal-content input:focus{
+    border-color: var(--green);
+    box-shadow: 0 0 8px rgba(0,255,102,0.5);
+}
+
+/* Placeholder color */
+.modal-content input::placeholder{
+    color: #777;
+}
+
+/* Register/Login button inside modal */
+.modal-content .btn{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 25px;
+    border: 2px solid var(--green);
+    background: transparent;
+    color: var(--green);
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover */
+.modal-content .btn:hover{
+    background: var(--green);
+    color: #000;
+    box-shadow: 0 0 15px rgba(0,255,102,0.6);
+    transform: translateY(-2px);
+}
+
+/* Close icon */
+.modal-content .close{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    color: #ff4d4d;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-content .close:hover{
+    transform: scale(1.2);
+}
+
+/* Animations */
+@keyframes fadeInModal{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+@keyframes scaleModal{
+    from{
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+<!-- BACKGROUND VIDEO -->
+<video class="bg-video" autoplay muted loop playsinline>
+    <source src="gym-video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<div class="video-overlay"></div>
+
+<!-- NAV -->
+<nav>
+    <h1>MUSCLE UP</h1>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+    </ul>
+    <div class="nav-buttons" id="navButtons">
+    <button class="btn" onclick="openLogin()" id="loginBtn">Login</button>
+    <button class="btn" onclick="openRegister()" id="registerBtn">Register</button>
+    <a href="admin.html" class="btn">Admin</a>
+
+
+
+</div>
+
+<!-- User Welcome + Logout -->
+<div class="nav-buttons" id="userPanel" style="display:none;">
+    <span id="welcomeUser" style="color:var(--green); font-weight:600;"></span>
+    <button class="btn" onclick="logoutUser()">Logout</button>
+</div>
+
+
+
+</nav>
+
+<!-- HOME -->
+<section id="home" class="home">
+    <h2>Build Your Body. Boost Your Strength.</h2>
+    <p>Muscle Up Gym is your ultimate destination for fitness, strength training and body transformation.</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+    <h2>About Muscle Up Gym</h2>
+
+    <div class="about-wrapper">
+
+        <!-- LEFT CONTENT -->
+        <div class="about-text">
+            <p>
+    <strong class="highlight">Muscle Up Gym</strong> is more than just a workout space —
+    it’s a fitness environment built to inspire
+    <span class="highlight">discipline</span>,
+    <span class="highlight">confidence</span>, and
+    <span class="highlight">long-term health</span>.
+    We believe that real transformation happens when training is done with the
+    right <span class="highlight">technique</span>,
+    <span class="highlight">consistency</span>, and
+    <span class="highlight">mindset</span>.
+</p>
+
+<p>
+    Our gym is equipped with <span class="highlight">modern equipment</span>,
+    a motivating atmosphere, and
+    <span class="highlight">certified trainers</span> who guide you through every step.
+    From beginners starting their fitness journey to experienced athletes
+    focusing on performance, we provide
+    <span class="highlight">structured workout programs</span>
+    for all fitness levels.
+</p>
+
+<p>
+    Training at Muscle Up Gym is not only about building muscles —
+    it’s about improving
+    <span class="highlight">mental focus</span>,
+    reducing <span class="highlight">stress</span>,
+    boosting <span class="highlight">self-confidence</span>,
+    and developing a strong sense of
+    <span class="highlight">self-discipline</span>.
+    Regular workouts help you feel more energetic, positive, and in control
+    of your lifestyle.
+</p>
+
+<p>
+    We encourage smart fitness habits like proper
+    <span class="highlight">warm-ups</span>,
+    correct <span class="highlight">posture</span>,
+    balanced <span class="highlight">nutrition</span>,
+    and adequate <span class="highlight">recovery</span>.
+    By combining effective training with healthy routines,
+    we help you achieve
+    <span class="highlight">sustainable results</span>
+    that last beyond short-term goals.
+</p>
+
+
+            <div class="benefits">
+                <div class="benefit-item">
+                    <span>💪</span>
+                    <div>Build lean muscle & real strength</div>
+                </div>
+                <div class="benefit-item">
+                    <span>🔥</span>
+                    <div>Faster fat loss & higher metabolism</div>
+                </div>
+                <div class="benefit-item">
+                    <span>🧠</span>
+                    <div>Improved focus & reduced stress</div>
+                </div>
+                <div class="benefit-item">
+                    <span>⚡</span>
+                    <div>More energy & better endurance</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT TRAINER NOTE -->
+        <div class="trainer-note">
+            <h3>Trainer’s Note 🏋️‍♂️</h3>
+            <p>
+                “Fitness is not about lifting the heaviest weight — it’s about lifting
+                correctly, staying consistent, and respecting recovery.
+                Train smart, fuel your body right, and results will follow.”
+            </p>
+            <p style="margin-top:10px; color:var(--green); font-weight:600;">
+                – Certified Fitness Coach, Muscle Up Gym
+            </p>
+            <p>
+    <strong>Muscle Up Gym</strong> is more than just a workout space — it’s a fitness
+    environment built to inspire discipline, confidence, and long-term health.
+    We believe that real transformation happens when training is done with the
+    right technique, consistency, and mindset. Our gym is designed to motivate
+    you every day with modern equipment, positive energy, and a supportive
+    atmosphere that pushes you to give your best.
+</p>
+
+
+        </div>
+
+    </div>
+</section>
+<!-- /* SERVICES */     -->
+<section id="services" class="services">
+    <h2>Our Services</h2>
+    <p style="color:#ccc; max-width:700px; margin:auto;">
+        Professional training programs designed to help you build strength,
+        improve fitness, improve stamina and stay consistent with your goals.
+    </p>
+
+    <div class="services-container">
+
+        <!-- Service 1 -->
+        <div class="service-card">
+            <div class="service-icon">🏋️‍♂️</div>
+            <h3>Personal Training</h3>
+            <p>One-on-one coaching designed according to your fitness goals and body type.</p>
+            <ul class="service-features">
+                <li>Customized workout plan</li>
+                <li>Form correction</li>
+                <li>Progress tracking</li>
+                <li>Proper guidance</li>
+                <li>Experienced personal trainers</li>
+            </ul>
+            <button class="learn-btn" onclick="this.nextElementSibling.classList.toggle('show')">
+                View Plan
+            </button>
+            <div class="extra-info">
+                <p><strong>Duration:</strong> 60 minutes per session</p>
+                <p><strong>Focus:</strong> Strength, Muscle Gain, Fat Loss</p>
+                <p><strong>Customization:</strong> Tailored to your body type and goals</p>
+                <p><strong>Support:</strong> Ongoing guidance and motivation</p>
+                <p><strong>Trainer Expertise:</strong> Certified fitness coaches with experience in various training styles</p>
+                <p><strong>Progress Tracking:</strong> Regular assessments to monitor your improvements and adjust the plan as needed</p>
+                <p><strong>Additional Benefits:</strong> Access to gym facilities, nutrition advice, and recovery tips</p>
+            </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card">
+            <div class="service-icon">💪</div>
+            <h3>Weight Training</h3>
+            <p>Strength and muscle building programs for beginners to advanced members.</p>
+            <ul class="service-features">
+                <li>Muscle gain plan</li>
+                <li>Strength training</li>
+                <li>Trainer support</li>
+                <li>Progress tracking</li>
+                <li>Proper form guidance</li>
+                </ul>
+            <button class="learn-btn" onclick="this.nextElementSibling.classList.toggle('show')">
+                View Plan
+            </button>
+            <div class="extra-info">
+                <p><strong>Level:</strong> Beginner to Advanced<br></p>
+                <p><strong>Focus:</strong> Muscle Gain & Strength</p>
+                <p><strong>Support:</strong> Trainer guidance, form correction, and progress tracking
+                <p><strong>Additional Benefits:</strong> Access to gym facilities, nutrition advice, and recovery tips</p>
+                <p><strong>Trainer Expertise:</strong> Certified fitness coaches with experience in various training styles</p>
+                <p><strong>Customization:</strong> Tailored workout plans based on your goals and body type</p>
+                <p><strong>Community Support:</strong> Join a community of like-minded individuals for motivation and accountability</p>
+                <p><strong>Results:</strong> Build lean muscle, increase strength, and improve overall fitness</p>
+            </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card">
+            <div class="service-icon">🏃‍♂️</div>
+            <h3>Cardio Training</h3>
+            <p>Improve endurance, stamina and overall heart health.</p>
+            <ul class="service-features">
+                <li>Treadmill & cycling</li>
+                <li>HIIT sessions</li>
+                <li>Fat loss focus</li>
+                <li>Endurance building</li>
+                <li>Trainer guidance</li>
+            </ul>
+            <button class="learn-btn" onclick="this.nextElementSibling.classList.toggle('show')">
+                View Plan
+            </button>
+            <div class="extra-info">
+                <p><strong>Goal:</strong> Fat Loss & Endurance</p>
+                <p><strong>Methods:</strong> Treadmill, Cycling, HIIT</p>
+                <p><strong>Support:</strong> Trainer guidance and progress tracking</p> 
+                <p><strong>Additional Benefits:</strong> Access to gym facilities, nutrition advice, and recovery tips</p>
+                <p><strong>Trainer Expertise:</strong> Certified fitness coaches with experience in various training styles</p>
+                <p><strong>Customization:</strong> Tailored workout plans based on your goals and body type</p>
+                <p><strong>Community Support:</strong> Join a community of like-minded individuals for
+            </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card">
+            <div class="service-icon">🥗</div>
+            <h3>Diet Planning</h3>
+            <p>Personalized nutrition guidance to support your fitness journey.</p>
+            <ul class="service-features">
+                <li>Muscle gain diet</li>
+                <li>Fat loss diet</li>
+                <li>Supplement guidance</li>
+                <li>Meal timing advice</li>
+                <li>Hydration tips</li>
+            </ul>
+            <button class="learn-btn" onclick="this.nextElementSibling.classList.toggle('show')">
+                View Plan
+            </button>
+            <div class="extra-info">
+                <p><strong>Type:</strong> Veg & Non-Veg options</p>
+                <p><strong>Focus:</strong> Muscle Gain, Fat Loss, or Maintenance</p>
+                <p><strong>Customization:</strong> Tailored to your dietary preferences, allergies, and fitness goals</p>
+                <p><strong>Support:</strong> Ongoing guidance from certified nutritionists and trainers to help you stay on track and make adjustments as needed</p>
+                <p><strong>Additional Benefits:</strong> Access to gym facilities, workout plans, and recovery tips to complement your diet plan</p>
+                <p><strong>Education:</strong> Learn about macronutrients, micronutrients, and how to make healthier food choices for long-term success</p> 
+                <p><strong>Community Support:</strong> Join a community of like-minded individuals for motivation, recipe sharing, and accountability</p>
+                <p><strong>Results:</strong> Achieve your fitness goals with a balanced diet that supports your training and lifestyle</p>
+            </div>
+        
+        </div>
+  <!-- Service 5 -->
+<div class="service-card">
+    <div class="service-icon">💊</div>
+    <h3>Supplement Guidance</h3>
+    <p>Get expert advice on choosing the right supplements according to your fitness goals, body type, and workout routine for safe and effective results.</p>
+
+    <ul class="service-features">
+        <li>Personalized supplement planning</li>
+        <li>Protein & nutrition guidance</li>
+        <li>Fat loss & muscle gain support</li>
+        <li>Safe dosage recommendations</li>
+        <li>Trusted brand suggestions</li>
+    </ul>
+
+    <button class="learn-btn" onclick="this.nextElementSibling.classList.toggle('show')">
+        View Plan
+    </button>
+
+    <!-- Hidden Extra Info in <p> -->
+    <div class="extra-info">
+        <p>
+        • Supplement selection based on your fitness goals.<br>
+        • Guidance for whey protein, mass gainers, and creatine.<br>
+        • Vitamin and immunity support recommendations.<br>
+        • Pre-workout and recovery supplement advice.<br>
+        • Safe usage and timing instructions.<br>
+        • Diet and supplement combination planning.<br>
+        • 100% genuine product and brand guidance.<br>
+        • Continuous support for better results.
+        </p>
+    </div>
+</div>
+
+
+      <!-- Service 6 -->
+<div class="service-card">
+    <div class="service-icon">🧘</div>
+    <h3>Yoga Training</h3>
+    <p>Improve your flexibility, balance, and mental wellness with our guided yoga sessions. Suitable for beginners and advanced members looking for a healthier and stress-free lifestyle.</p>
+
+    <ul class="service-features">
+        <li>Flexibility & mobility improvement</li>
+        <li>Stress relief sessions</li>
+        <li>Breathing techniques (Pranayama)</li>
+        <li>Posture correction</li>
+        <li>Beginner to advanced guidance</li>
+    </ul>
+
+    <button class="learn-btn" onclick="this.nextElementSibling.classList.toggle('show')">
+        View Plan
+    </button>
+
+    <!-- Hidden Extra Info in <p> -->
+    <div class="extra-info">
+        <p>
+        • Improves flexibility and body balance.<br>
+        • Helps reduce stress, anxiety, and mental fatigue.<br>
+        • Enhances breathing control and lung capacity.<br>
+        • Supports weight loss and body toning.<br>
+        • Improves posture and body alignment.<br>
+        • Boosts immunity and overall health.<br>
+        • Increases focus, concentration, and mental clarity.<br>
+        • Suitable for all age groups and fitness levels.
+        </p>
+    </div>
+</div>
+
+
+</section>
+
+
+
+
+<!-- FEE STRUCTURE -->
+<section class="fees" id="fees">
+    <h2>Membership Fee Structure</h2>
+
+    <div class="fee-box">
+        <div class="fee-card">
+            <h3>Monthly Plan</h3>
+            <p>₹ 1000 / Month</p>
+            <button class="join-btn" onclick="joinPlan('1 Month', '₹1000')">
+    Join Now
+</button>
+
+        </div>
+
+        <div class="fee-card">
+            <span class="badge">Budget Friendly</span>
+            <h3>3 Months Package</h3>
+            <p>₹ 2500</p>
+            <div class="save-text">Save ₹500</div>
+            <button class="join-btn" onclick="joinPlan('3 Months', '₹2500')">
+    Join Now
+</button>
+
+        </div>
+
+        <div class="fee-card">
+            <h3>Annual Package</h3>
+            <p>₹ 10,000</p>
+            <div class="save-text">Best Value</div>
+            <button class="join-btn" onclick="joinPlan('12 Months', '₹10000')">
+    Join Now
+</button>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-box">
+        <div><img src="gym6.jpg"></div>
+        <div><img src="gym2.jpg"></div>
+        <div><img src="gym3.jpg"></div>
+        <div><img src="gym4.jpg"></div>
+        <div><img src="gym5.jpg"></div>
+    </div>
+</section>
+
+<!-- FLOATING DEMO BUTTON -->
+<a href="#fees" class="demo-btn">
+    View Fees
+</a>
+
+ <!-- REGISTER MODAL -->
+<div class="modal" id="registerModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeRegister()">✖</span>
+        <h3>Register</h3>
+
+        <input type="text" id="regName" placeholder="Full Name" required>
+        <input type="email" id="regEmail" placeholder="Email" required>
+        <input type="password" id="regPassword" placeholder="Password" required>
+
+        <button class="btn" onclick="registerUser()">Register</button>
+    </div>
+</div>
+
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLogin()">✖</span>
+        <h3>Login</h3>
+
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+
+        <button class="btn" onclick="loginUser()">Login</button>
+    </div>
+</div>
+
+
+</div>
+
+
+<script>
+let users = JSON.parse(localStorage.getItem("gymUsers")) || [];
+users.push({name:name, email:email});
+localStorage.setItem("gymUsers", JSON.stringify(users));
+function getUsers(){
+    return JSON.parse(localStorage.getItem("gymUsers")) || [];
+}
+/* -------- REGISTER -------- */
+function registerUser(){
+
+    let name = document.getElementById("regName").value.trim();
+    let email = document.getElementById("regEmail").value.trim();
+    let password = document.getElementById("regPassword").value.trim();
+
+    if(!name || !email || !password){
+        alert("Please fill all fields");
+        return;
+    }
+
+    let users = getUsers();
+
+    let exists = users.find(user => user.email === email);
+    if(exists){
+        alert("User already registered. Please login.");
+        return;
+    }
+
+    users.push({name, email, password});
+    saveUsers(users);
+
+    alert("Registration Successful! Please login.");
+
+    document.getElementById("regName").value = "";
+    document.getElementById("regEmail").value = "";
+    document.getElementById("regPassword").value = "";
+
+    closeRegister();
+}
+
+/* -------- LOGIN -------- */
+function loginUser(){
+
+    let email = document.getElementById("loginEmail").value.trim();
+    let password = document.getElementById("loginPassword").value.trim();
+
+    let users = getUsers();
+
+    let user = users.find(u => u.email === email && u.password === password);
+
+    if(user){
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+        document.getElementById("navButtons").style.display = "none";
+        document.getElementById("userPanel").style.display = "flex";
+        document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
+
+        alert("Welcome " + user.name + "!");
+        closeLogin();
+    }else{
+        alert("Invalid email or password");
+    }
+}
+
+/* -------- LOGOUT -------- */
+function logoutUser(){
+    localStorage.removeItem("loggedInUser");
+
+    document.getElementById("userPanel").style.display = "none";
+    document.getElementById("navButtons").style.display = "flex";
+
+    alert("Logged out successfully");
+}
+
+/* -------- AUTO LOGIN -------- */
+window.onload = function(){
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if(user){
+        document.getElementById("navButtons").style.display = "none";
+        document.getElementById("userPanel").style.display = "flex";
+        document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
+    }
+}
+
+/* -------- WHATSAPP ACTIONS -------- */
+function contactAdmin(){
+    const msg = "Hello Muscle Up Gym Admin, I need assistance.";
+    const url = `https://wa.me/919306907839?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+}
+
+function joinPlan(plan, price){
+    const msg = `Hello Muscle Up Gym, I want to join the ${plan} plan (${price}). Please guide me further.`;
+    const url = `https://wa.me/919306907839?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+}
+
+</script>
+
+
+<a href="https://wa.me/919306907839" 
+   class="whatsapp-float" 
+   target="_blank"
+   aria-label="Chat on WhatsApp">
+   💬
+</a>
+<!-- ================= ADMIN PANEL ================= -->
+
+<section id="adminPanel" style="display:none; padding:100px 40px; background:#000; min-height:100vh;">
+
+```
+<h2 style="color:var(--green); text-align:center; margin-bottom:20px;">
+    Admin Dashboard
+</h2>
+
+<div style="text-align:center; margin-bottom:30px;">
+    <button class="btn" onclick="closeAdmin()">Back to Website</button>
+</div>
+
+<!-- Stats -->
+<div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:30px;">
+    <div style="background:#111; padding:25px; border-radius:10px; text-align:center; width:220px; border:1px solid #222;">
+        <h3 style="color:var(--green);">Total Users</h3>
+        <p id="totalUsers" style="font-size:28px;">0</p>
+    </div>
+</div>
+
+<!-- Users Table -->
+<div style="max-width:900px; margin:auto;">
+    <h3 style="color:var(--green); margin-bottom:10px;">Registered Members</h3>
+
+    <table style="width:100%; border-collapse:collapse; background:#111;">
+        <thead>
+            <tr style="background:var(--green); color:black;">
+                <th style="padding:10px;">Name</th>
+                <th style="padding:10px;">Email</th>
+            </tr>
+        </thead>
+        <tbody id="usersTable"></tbody>
+    </table>
+</div>
+```
+
+</section>
+<!-- ================= END ADMIN PANEL ================= -->
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-box">
+    <h3>Our Location</h3>
+    <iframe 
+        src="https://www.google.com/maps?q=VPO%20Panjokhra%20Sahib%20Ambala&output=embed"
+        width="100%"
+        height="200"
+        style="border:0; border-radius:10px;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+ <div class="footer-box">
+            <h3>Muscle Up Gym</h3>
+            <p>Train hard, stay strong, and build a healthy lifestyle with modern equipment and expert guidance.</p>
+        </div>
+  <div class="footer-box">
+            <h3>Contact</h3>
+            <p>Email: sharmaparteek302@gmail.com</p>
+            <p>Phone: +91 9306907839</p>
+            <p>Location: panjokhra sahib ambala</p>
+        </div>
+        <div class="timings">
+    <h3>Gym Timings</h3>
+    <p>Morning: 5:00 AM – 11:00 AM</p>
+    <p>Evening: 4:00 PM – 10:00 PM</p>
+</div>
+
+
+        <div class="footer-box">
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a><br>
+            <a href="#about">About</a><br>
+            <a href="#services">Services</a><br>
+            <a href="#gallery">Gallery</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Muscle Up Gym | Designed by Parteek Sharma
+    </div>
+   
+
+</footer>
+<!-- SERVICE MODAL -->
+<div class="service-modal" id="serviceModal">
+    <div class="service-modal-content">
+        <span class="close-modal" onclick="closeService()">✖</span>
+        <h3 id="serviceTitle"></h3>
+        <p id="serviceDesc"></p>
+    </div>
+</div>
+<script>
+/* ===============================
+   MUSCLE UP LOGIN SYSTEM
+   (Single Clean Version)
+================================*/
+
+/* ---------- USER STORAGE ---------- */
+function getUsers(){
+    return JSON.parse(localStorage.getItem("gymUsers")) || [];
+}
+
+function saveUsers(users){
+    localStorage.setItem("gymUsers", JSON.stringify(users));
+}
+
+/* ---------- MODAL CONTROL ---------- */
+function openRegister(){
+    document.getElementById("registerModal").style.display = "flex";
+}
+
+function closeRegister(){
+    document.getElementById("registerModal").style.display = "none";
+}
+
+function openLogin(){
+    document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin(){
+    document.getElementById("loginModal").style.display = "none";
+}
+
+/* ---------- REGISTER ---------- */
+function registerUser(){
+
+    let name = document.getElementById("regName").value.trim();
+    let email = document.getElementById("regEmail").value.trim();
+    let password = document.getElementById("regPassword").value.trim();
+
+    if(!name || !email || !password){
+        alert("Please fill all fields");
+        return;
+    }
+
+    let users = getUsers();
+
+    // Check if already registered
+    let exists = users.find(user => user.email === email);
+    if(exists){
+        alert("User already registered. Please login.");
+        return;
+    }
+
+    users.push({
+        name: name,
+        email: email,
+        password: password
+    });
+
+    saveUsers(users);
+
+    alert("Registration Successful! Please login.");
+
+    // Clear fields
+    document.getElementById("regName").value = "";
+    document.getElementById("regEmail").value = "";
+    document.getElementById("regPassword").value = "";
+
+    closeRegister();
+}
+
+/* ---------- LOGIN ---------- */
+function loginUser(){
+
+    let email = document.getElementById("loginEmail").value.trim();
+    let password = document.getElementById("loginPassword").value.trim();
+
+    let users = getUsers();
+
+    let user = users.find(u => u.email === email && u.password === password);
+
+    if(user){
+
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+        document.getElementById("navButtons").style.display = "none";
+        document.getElementById("userPanel").style.display = "flex";
+        document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
+
+        alert("Welcome " + user.name + "!");
+        closeLogin();
+
+        // Clear fields
+        document.getElementById("loginEmail").value = "";
+        document.getElementById("loginPassword").value = "";
+
+    }else{
+        alert("Invalid email or password");
+    }
+}
+
+/* ---------- LOGOUT ---------- */
+function logoutUser(){
+    localStorage.removeItem("loggedInUser");
+
+    document.getElementById("userPanel").style.display = "none";
+    document.getElementById("navButtons").style.display = "flex";
+}
+
+/* ---------- AUTO LOGIN AFTER REFRESH ---------- */
+window.onload = function(){
+
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if(user){
+        document.getElementById("navButtons").style.display = "none";
+        document.getElementById("userPanel").style.display = "flex";
+        document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
+    }
+}
+/* ================= ADMIN PANEL FUNCTIONS ================= */
+
+function openAdmin(){
+document.getElementById("adminPanel").style.display = "block";
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
+loadAdminData();
+}
+
+function closeAdmin(){
+document.getElementById("adminPanel").style.display = "none";
+}
+
+function loadAdminData(){
+    let users = JSON.parse(localStorage.getItem("gymUsers")) || [];
+
+    // Total Users
+    document.getElementById("totalUsers").innerText = users.length;
+
+    // Table
+    let table = document.getElementById("usersTable");
+    table.innerHTML = "";
+
+    users.forEach(user => {
+        let row = `<tr style="border-bottom:1px solid #222;"><td style="padding:10px; text-align:center;">${user.name}</td><td style="padding:10px; text-align:center;">${user.email}</td></tr>`;
+        table.innerHTML += row;
+    });
+}
+
+</script>
+
+
+</body>
+</html>

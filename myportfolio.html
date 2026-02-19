@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parteek Sharma | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00eaff;
+            --primary-dark: #008894;
+            --bg-dark: #0f2027;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 8%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 234, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: var(--transition);
+            text-transform: uppercase;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* --- GLOBAL SECTIONS --- */
+        section {
+            padding: 120px 10%;
+            min-height: 100vh;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2.section-title {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        /* --- HOME --- */
+        .home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .home h1 { font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.2; }
+        .home span { color: var(--primary); text-shadow: 0 0 20px rgba(0, 234, 255, 0.3); }
+        .home p { margin: 20px 0; font-size: 24px; color: #ccc; min-height: 35px; }
+
+        .socials { margin: 20px 0; display: flex; gap: 20px; }
+        .socials a {
+            color: var(--primary);
+            font-size: 24px;
+            transition: var(--transition);
+        }
+        .socials a:hover { transform: translateY(-5px); color: #fff; }
+
+        .home button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .home button:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        /* --- ABOUT (NEWLY UPDATED) --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ccd6f6;
+            margin-bottom: 25px;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .h-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(0, 234, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .h-card:hover {
+            border-color: var(--primary);
+            background: rgba(0, 234, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .h-card i { font-size: 30px; color: var(--primary); margin-bottom: 15px; }
+        .h-card h4 { font-size: 16px; margin-bottom: 5px; }
+        .h-card span { font-size: 12px; color: #888; }
+
+        .about-fact-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .about-fact-box ul { list-style: none; }
+        .about-fact-box ul li { margin-bottom: 15px; font-size: 16px; }
+        .about-fact-box ul li strong { color: var(--primary); margin-right: 10px; }
+
+        /* --- SKILLS --- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill { margin-bottom: 25px; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .bar { background: #1a1a1a; height: 10px; border-radius: 10px; overflow: hidden; }
+        .progress { height: 100%; background: var(--primary); width: 0; transition: 2s ease-in-out; }
+
+        /* --- PROJECTS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card h3 { margin-bottom: 15px; color: var(--primary); }
+        .project-card p { font-size: 15px; color: #bbb; margin-bottom: 20px; }
+        .project-tags { display: flex; gap: 10px; }
+        .project-tags span {
+            background: rgba(0, 234, 255, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* --- CONTACT --- */
+        .contact-content { text-align: center; }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .info-item { font-size: 20px; }
+        .info-item i { color: var(--primary); margin-right: 10px; }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px;
+            text-align: center;
+            background: #081217;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media(max-width: 992px) {
+            .about-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; } /* Add a hamburger menu later if needed */
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">PARTEEK<span>.</span></div>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section id="home" class="home reveal">
+    <h1>I'M <span>Parteek Sharma</span></h1>
+    <p id="typing"></p>
+    <div class="socials">
+        <a href="https://github.com/parteek9306"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <a href="Parteek_Sharma_CV.pdf" download>
+        <button>DOWNLOAD CV</button>
+    </a>
+</section>
+
+<section id="about" class="reveal">
+    <h2 class="section-title">About <span>Me</span></h2>
+    <div class="about-grid">
+        <div class="about-text">
+            <h3>Bridging Design & Functionality</h3>
+            <p>
+                I am a passionate Web Design student at <strong>S.A. JAIN College</strong>, Ambala City. My focus is on creating visually stunning and highly functional digital experiences. I believe that a good website should not only look beautiful but also provide a seamless user journey.
+            </p>
+            <p>
+                Currently specializing in frontend technologies, I enjoy turning complex problems into simple, elegant code. My goal is to become a Full-Stack Developer who builds tools that make an impact.
+            </p>
+            <div class="about-highlights">
+                <div class="h-card">
+                    <i class="fas fa-layer-group"></i>
+                    <h4>Responsive</h4>
+                    <span>Layouts for all screens</span>
+                </div>
+                <div class="h-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Fast</h4>
+                    <span>Optimized performance</span>
+                </div>
+                <div class="h-card">
+                    <i class="fas fa-code"></i>
+                    <h4>Clean</h4>
+                    <span>Modern coding standards</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-info">
+            <div class="about-fact-box">
+                <h3 style="margin-bottom: 20px;">Personal Info</h3>
+                <ul>
+                    <li><strong><i class="fas fa-envelope"></i> Email:</strong> sharmaparteek302@gmail.com</li>
+                    <li><strong><i class="fas fa-phone"></i> Phone:</strong> +91 9306907839</li>
+                    <li><strong><i class="fas fa-map-marker-alt"></i> City:</strong> Ambala, India</li>
+                    <li><strong><i class="fas fa-graduation-cap"></i> Degree:</strong> B.A. General</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="reveal">
+    <h2 class="section-title">Technical <span>Skills</span></h2>
+    <div class="skills-container">
+        <div class="skill-column">
+            <div class="skill">
+                <div class="skill-info"><span>HTML5</span><span>90%</span></div>
+                <div class="bar"><div class="progress" data-width="90%"></div></div>
+            </div>
+            <div class="skill">
+                <div class="skill-info"><span>CSS3 / Animations</span><span>85%</span></div>
+                <div class="bar"><div class="progress" data-width="85%"></div></div>
+            </div>
+        </div>
+        <div class="skill-column">
+            <div class="skill">
+                <div class="skill-info"><span>JavaScript</span><span>70%</span></div>
+                <div class="bar"><div class="progress" data-width="70%"></div></div>
+            </div>
+            <div class="skill">
+                <div class="skill-info"><span>MS Office</span><span>80%</span></div>
+                <div class="bar"><div class="progress" data-width="80%"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="reveal">
+    <h2 class="section-title">Latest <span>Work</span></h2>
+    <div class="projects-grid">
+        <div class="project-card">
+            <h3>Muscle Up Gym</h3>
+            <p>A high-energy gym website featuring a supplement store, responsive design, and smooth scroll animations.</p>
+            <div class="project-tags">
+                <span>HTML</span><span>CSS</span><span>JS</span>
+            </div>
+        </div>
+        <div class="project-card">
+            <h3>Digital Portfolio</h3>
+            <p>This current website! Showcasing my journey, skills, and projects with a modern dark theme.</p>
+            <div class="project-tags">
+                <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+        </div>
+        <div class="project-card">
+            <h3>E-Commerce UI</h3>
+            <p>A concept for a fitness supplement shop with vibrant red/black aesthetics and interactive product cards.</p>
+            <div class="project-tags">
+                <span>Responsive</span><span>Design</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="reveal">
+    <h2 class="section-title">Get In <span>Touch</span></h2>
+    <div class="contact-content">
+        <h3>Let's build something amazing together!</h3>
+        <p style="margin: 20px 0; color: #888;">I am currently available for freelance work and internships.</p>
+        <div class="contact-info">
+            <div class="info-item"><i class="fas fa-envelope"></i> sharmaparteek302@gmail.com</div>
+            <div class="info-item"><i class="fas fa-phone"></i> +91 9306907839</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>Handcrafted by <span style="color:var(--primary);">Parteek Sharma</span> © 2026</p>
+</footer>
+
+<script>
+/* Scroll Reveal & Skill Progress */
+const observerOptions = { threshold: 0.2 };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            // If it's the skills section, animate bars
+            if(entry.target.id === 'skills') {
+                document.querySelectorAll('.progress').forEach(p => {
+                    p.style.width = p.getAttribute('data-width');
+                });
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+/* Typing Effect */
+const textArray = ["Web Designer", "Frontend Developer", "Fitness Enthusiast"];
+let textIndex = 0;
+let charIndex = 0;
+const typingTarget = document.getElementById("typing");
+
+function type() {
+    if (charIndex < textArray[textIndex].length) {
+        typingTarget.innerHTML += textArray[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 100);
+    } else {
+        setTimeout(erase, 2000);
+    }
+}
+
+function erase() {
+    if (charIndex > 0) {
+        typingTarget.innerHTML = textArray[textIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+    } else {
+        textIndex = (textIndex + 1) % textArray.length;
+        setTimeout(type, 500);
+    }
+}
+
+window.onload = type;
+</script>hy
+
+</body>
+</html>
