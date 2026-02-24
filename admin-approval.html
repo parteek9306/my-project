@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Approval - Muscle Up Gym</title>
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    padding:20px;
+}
+.card{
+    background:#222;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:8px;
+}
+button{
+    padding:8px 15px;
+    margin:5px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+.approve{background:green;color:white;}
+.reject{background:red;color:white;}
+</style>
+</head>
+<body>
+
+<h1>Pending Payments</h1>
+
+<div id="requests"></div>
+
+<script>
+
+function loadRequests(){
+
+    let admissions = JSON.parse(localStorage.getItem("gymAdmissions")) || [];
+    let container = document.getElementById("requests");
+    container.innerHTML="";
+
+    admissions.forEach(item => {
+
+        if(item.status === "Pending"){
+
+            container.innerHTML += `
+            <div class="card">
+                <p><b>Name:</b> ${item.name}</p>
+                <p><b>Plan:</b> ${item.plan}</p>
+                <p><b>Date:</b> ${item.date}</p>
+                <button class="approve" onclick="approve(${item.id})">Approve</button>
+                <button class="reject" onclick="reject(${item.id})">Reject</button>
+            </div>
+            `;
+        }
+
+    });
+}
+
+function approve(id){
+
+    let admissions = JSON.parse(localStorage.getItem("gymAdmissions")) || [];
+
+    admissions = admissions.map(item=>{
+        if(item.id === id){
+            item.status = "Approved";
+        }
+        return item;
+    });
+
+    localStorage.setItem("gymAdmissions", JSON.stringify(admissions));
+    loadRequests();
+}
+
+function reject(id){
+
+    let admissions = JSON.parse(localStorage.getItem("gymAdmissions")) || [];
+
+    admissions = admissions.filter(item => item.id !== id);
+
+    localStorage.setItem("gymAdmissions", JSON.stringify(admissions));
+    loadRequests();
+}
+
+loadRequests();
+
+</script>
+
+</body>
+</html>
