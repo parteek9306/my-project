@@ -4,8 +4,27 @@
 <meta charset="UTF-8">
 <title>Muscle Up Gym</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="icon" type="image/png" href="muscleuplogo.png">
 <style>
+    .logo-container{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+}
+
+.header{
+    padding:10px 20px;
+    background:#000;
+    color:#00ff88;
+    display:flex;
+    align-items:center;
+}
     /* WHATSAPP FLOAT BUTTON */
 .whatsapp-float{
     position:fixed;
@@ -49,10 +68,10 @@ body{
     background:var(--dark);
     color:white;
     scroll-behavior:smooth;
-    background-image:url('gym1.jpg');
     background-size:cover;
     background-position:center;
     background-attachment:fixed;
+    
 }
 
 /* NAVBAR */
@@ -1027,9 +1046,80 @@ nav ul{
         opacity: 1;
     }
 }
+.member-logout{
+background:transparent;
+border:2px solid var(--green);
+color:var(--green);
+padding:8px 22px;
+border-radius:30px;
+font-size:14px;
+font-weight:bold;
+cursor:pointer;
+transition:all 0.3s ease;
+box-shadow:0 0 10px rgba(0,255,136,0.2);
+}
 
+.member-logout:hover{
+background:var(--green);
+color:black;
+box-shadow:0 0 20px rgba(0,255,136,0.6);
+transform:translateY(-2px);
+}
+
+.member-logout:active{
+transform:scale(0.95);
+}
+.testimonials{
+    padding:60px 20px;
+    background:#111;
+    color:#fff;
+    text-align:center;
+}
+
+.testimonials h2{
+    font-size:32px;
+    margin-bottom:40px;
+    color:#00ff88;
+}
+
+.testimonial-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+}
+
+.testimonial-box{
+    background:#1a1a1a;
+    padding:25px;
+    width:280px;
+    border-radius:10px;
+    border:1px solid #00ff88;
+    transition:0.3s;
+}
+
+.testimonial-box:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 20px #00ff88;
+}
+
+.testimonial-box p{
+    font-size:15px;
+    margin-bottom:15px;
+}
+
+.testimonial-box h4{
+    color:#00ff88;
+    margin-bottom:5px;
+}
+
+.testimonial-box span{
+    font-size:14px;
+    color:#ccc;
+}
 
 </style>
+<link rel="icon" type="image/png" href="muscleuplogo.png">
 </head>
 
 <body>
@@ -1042,10 +1132,16 @@ nav ul{
 
 <!-- NAV -->
 <nav>
-    <h1>MUSCLE UP</h1>
+    <header class="header">
+    <div class="logo-container">
+        <img src="muscleuplogo.png" alt="MuscleUp Gym Logo" class="logo">
+        <h1>MuscleUp Gym</h1>
+    </div>
+</header>
     <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#gallery">Gallery</a></li>
     </ul>
@@ -1061,7 +1157,10 @@ nav ul{
 <!-- User Welcome + Logout -->
 <div class="nav-buttons" id="userPanel" style="display:none;">
     <span id="welcomeUser" style="color:var(--green); font-weight:600;"></span>
-    <button class="btn" onclick="logoutUser()">Logout</button>
+    <button class="member-logout" onclick="logoutMember()">
+    ⎋ Logout
+</button>
+
 </div>
 
 
@@ -1170,6 +1269,32 @@ nav ul{
 </p>
 
 
+        </div>
+
+    </div>
+</section>
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+    <h2>Member Reviews</h2>
+
+    <div class="testimonial-container">
+
+        <div class="testimonial-box">
+            <p>"Best gym in Panjokhra sahib in ambala district! Trainers are very supportive and the environment is motivating."</p>
+            <h4>⭐⭐⭐⭐⭐</h4>
+            <span>- harman khurche</span>
+        </div>
+
+        <div class="testimonial-box">
+            <p>"I lost 8kg in 2 months at MuscleUp Gym. Highly recommended for weight loss."</p>
+            <h4>⭐⭐⭐⭐⭐</h4>
+            <span>- happy </span>
+        </div>
+
+        <div class="testimonial-box">
+            <p>"Good equipment, clean environment and friendly staff. Worth the money."</p>
+            <h4>⭐⭐⭐⭐⭐</h4>
+            <span>- mohit mehra </span>
         </div>
 
     </div>
@@ -1371,7 +1496,7 @@ nav ul{
         <div class="fee-card">
             <h3>Monthly Plan</h3>
             <p>₹ 1000 / Month</p>
-            <button class="join-btn" onclick="joinPlan('1 Month', '₹1000')">
+            <button class="join-btn" onclick="checkLoginAndOpen('1 Month','₹1000')">
     Join Now
 </button>
 
@@ -1382,7 +1507,7 @@ nav ul{
             <h3>3 Months Package</h3>
             <p>₹ 2500</p>
             <div class="save-text">Save ₹500</div>
-            <button class="join-btn" onclick="joinPlan('3 Months', '₹2500')">
+            <button class="join-btn" onclick="checkLoginAndOpen('3 Months','₹2500')">
     Join Now
 </button>
 
@@ -1392,8 +1517,8 @@ nav ul{
             <h3>Annual Package</h3>
             <p>₹ 10,000</p>
             <div class="save-text">Best Value</div>
-            <button class="join-btn" onclick="joinPlan('12 Months', '₹10000')">
-    Join Now
+            <button class="join-btn" onclick="checkLoginAndOpen ('12 Months','₹10000')">
+     join now           
 </button>
 
         </div>
@@ -1410,6 +1535,9 @@ nav ul{
         <div><img src="gym3.jpg"></div>
         <div><img src="gym4.jpg"></div>
         <div><img src="gym5.jpg"></div>
+        <div><img src="gym1.jpg"></div>
+        <div><img src="wallpaper1.jpg"></div>
+        <div><img src="wallpaper2.jpg"></div>
     </div>
 </section>
 
@@ -1417,7 +1545,59 @@ nav ul{
 <a href="#fees" class="demo-btn">
     View Fees
 </a>
+<div id="memberDashboard" style="display:none; text-align:center;">
+    <h2>Welcome Member 💪</h2>
+    <p>This is your dashboard.</p>
+    <button onclick="logout()">Logout</button>
+</div>
 
+
+<div id="memberSection" style="display:none;">
+    <h2>Welcome Member 💪</h2>
+    <p>Your exclusive member content here.</p>
+    <button onclick="logoutMember()">Logout</button>
+</div>
+<!-- ================= ADMISSION FORM ================= -->
+<div class="modal" id="admissionModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAdmission()">✖</span>
+        <h3>Gym Admission Form</h3>
+
+        <input type="text" id="admName" placeholder="Full Name" required>
+        <input type="number" id="admAge" placeholder="Age" required>
+        <input type="text" id="admPhone" placeholder="Phone Number" required>
+        <input type="text" id="admPlan" readonly>
+
+        <button class="btn" onclick="submitAdmission()">Submit Admission</button>
+    </div>
+</div>
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <h2>Complete Payment</h2>
+
+    <!-- QR Code Image -->
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=sharmaparteek302@okaxis&pn=Muscle%20Up%20Gym&am=999&cu=INR"
+         alt="GPay QR"
+         style="width:250px; margin:20px 0;">
+
+    <p>Scan using Google Pay / PhonePe / Paytm</p>
+
+    <br>
+
+    <!-- Direct Pay Button -->
+    <a href="upi://pay?pa=sharmaparteek302@okaxis&pn=Muscle%20Up%20Gym&am=999&cu=INR">
+      <button style="padding:12px 25px; background:#0f9d58; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer;">
+        Pay with GPay
+      </button>
+    </a>
+
+    <br><br>
+
+    <button onclick="confirmPayment()">I Have Paid</button>
+    <button onclick="closePayment()">Cancel</button>
+
+  </div>
+</div>
  <!-- REGISTER MODAL -->
 <div class="modal" id="registerModal">
     <div class="modal-content">
@@ -1443,21 +1623,59 @@ nav ul{
         <input type="password" id="loginPassword" placeholder="Password" required>
 
         <button class="btn" onclick="loginUser()">Login</button>
+        <p style="text-align:center; margin-top:10px;">
+    <a href="#" onclick="openForgot()" 
+       style="color:var(--green); text-decoration:none; font-size:14px;">
+       Forgot Password?
+    </a>
+</p>
+    </div>
+</div>
+</div>
+<!-- FORGOT PASSWORD MODAL -->
+<div class="modal" id="forgotModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeForgot()">✖</span>
+        <h3>Reset Password</h3>
+
+        <input type="email" id="forgotEmail" placeholder="Registered Email" required>
+        <input type="password" id="newPassword" placeholder="New Password">
+
+        <button class="btn" onclick="handleReset()">Submit</button>
     </div>
 </div>
 
-
-</div>
-
-
 <script>
-let users = JSON.parse(localStorage.getItem("gymUsers")) || [];
-users.push({name:name, email:email});
-localStorage.setItem("gymUsers", JSON.stringify(users));
+/* ===============================
+   MUSCLE UP FINAL CLEAN SYSTEM
+================================*/
+
+/* ---------- USER STORAGE ---------- */
 function getUsers(){
     return JSON.parse(localStorage.getItem("gymUsers")) || [];
 }
-/* -------- REGISTER -------- */
+
+function saveUsers(users){
+    localStorage.setItem("gymUsers", JSON.stringify(users));
+}
+
+/* ---------- LOGIN MODAL ---------- */
+function openLogin(){
+    document.getElementById("loginModal").style.display = "flex";
+}
+function closeLogin(){
+    document.getElementById("loginModal").style.display = "none";
+}
+
+/* ---------- REGISTER MODAL ---------- */
+function openRegister(){
+    document.getElementById("registerModal").style.display = "flex";
+}
+function closeRegister(){
+    document.getElementById("registerModal").style.display = "none";
+}
+
+/* ---------- REGISTER USER ---------- */
 function registerUser(){
 
     let name = document.getElementById("regName").value.trim();
@@ -1471,7 +1689,7 @@ function registerUser(){
 
     let users = getUsers();
 
-    let exists = users.find(user => user.email === email);
+    let exists = users.find(u => u.email === email);
     if(exists){
         alert("User already registered. Please login.");
         return;
@@ -1482,73 +1700,153 @@ function registerUser(){
 
     alert("Registration Successful! Please login.");
 
-    document.getElementById("regName").value = "";
-    document.getElementById("regEmail").value = "";
-    document.getElementById("regPassword").value = "";
+    document.getElementById("regName").value="";
+    document.getElementById("regEmail").value="";
+    document.getElementById("regPassword").value="";
 
     closeRegister();
 }
 
-/* -------- LOGIN -------- */
+/* ---------- LOGIN USER ---------- */
 function loginUser(){
 
     let email = document.getElementById("loginEmail").value.trim();
     let password = document.getElementById("loginPassword").value.trim();
 
-    let users = getUsers();
+    if(!email || !password){
+        alert("Enter email and password");
+        return;
+    }
 
+    let users = getUsers();
     let user = users.find(u => u.email === email && u.password === password);
 
-    if(user){
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
-
-        document.getElementById("navButtons").style.display = "none";
-        document.getElementById("userPanel").style.display = "flex";
-        document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
-
-        alert("Welcome " + user.name + "!");
-        closeLogin();
-    }else{
-        alert("Invalid email or password");
-    }
+   if(user){
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+    alert("Welcome " + user.name);
+    window.location.href = "member-dashboard.html";
+}
 }
 
-/* -------- LOGOUT -------- */
-function logoutUser(){
+/* ---------- LOGOUT ---------- */
+function logoutMember(){
     localStorage.removeItem("loggedInUser");
-
-    document.getElementById("userPanel").style.display = "none";
-    document.getElementById("navButtons").style.display = "flex";
-
-    alert("Logged out successfully");
+    location.reload();
 }
 
-/* -------- AUTO LOGIN -------- */
-window.onload = function(){
+/* ---------- NAVBAR UPDATE ---------- */
+function updateNavbar(){
+
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
 
     if(user){
         document.getElementById("navButtons").style.display = "none";
         document.getElementById("userPanel").style.display = "flex";
         document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
+    }else{
+        document.getElementById("navButtons").style.display = "flex";
+        document.getElementById("userPanel").style.display = "none";
     }
 }
 
-/* -------- WHATSAPP ACTIONS -------- */
+/* ---------- CHECK LOGIN FOR PLANS ---------- */
+function checkLoginAndOpen(plan, price){
+
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if(!user){
+        alert("Please login first to join membership.");
+        openLogin();
+        return;
+    }
+
+    openAdmission(plan, price);
+}
+
+/* ---------- ADMISSION SYSTEM ---------- */
+function getAdmissions(){
+    return JSON.parse(localStorage.getItem("gymAdmissions")) || [];
+}
+
+function saveAdmissions(data){
+    localStorage.setItem("gymAdmissions", JSON.stringify(data));
+}
+
+let tempAdmission = {};
+
+function openAdmission(plan, price){
+    document.getElementById("admissionModal").style.display = "flex";
+    document.getElementById("admPlan").value = plan + " - " + price;
+}
+
+function closeAdmission(){
+    document.getElementById("admissionModal").style.display = "none";
+}
+
+function submitAdmission(){
+
+    let name = document.getElementById("admName").value.trim();
+    let age = document.getElementById("admAge").value.trim();
+    let phone = document.getElementById("admPhone").value.trim();
+    let plan = document.getElementById("admPlan").value;
+
+    if(!name || !age || !phone){
+        alert("Please fill all fields");
+        return;
+    }
+
+    tempAdmission = {
+        name,
+        age,
+        phone,
+        plan,
+        date: new Date().toLocaleDateString()
+    };
+
+    closeAdmission();
+    document.getElementById("paymentModal").style.display = "flex";
+}
+
+/* ---------- PAYMENT ---------- */
+function closePayment(){
+    document.getElementById("paymentModal").style.display = "none";
+}
+
+function confirmPayment(){
+
+    let admissions = JSON.parse(localStorage.getItem("gymAdmissions")) || [];
+
+    tempAdmission.status = "Pending";
+    tempAdmission.id = Date.now();
+
+    admissions.push(tempAdmission);
+    localStorage.setItem("gymAdmissions", JSON.stringify(admissions));
+
+    alert("Payment Submitted! Waiting for Admin Approval.");
+
+    document.getElementById("paymentModal").style.display = "none";
+
+    document.getElementById("admName").value="";
+    document.getElementById("admAge").value="";
+    document.getElementById("admPhone").value="";
+}
+
+/* ---------- AUTO LOAD ---------- */
+window.onload = function(){
+    updateNavbar();
+}
+
+/* ---------- WHATSAPP ---------- */
 function contactAdmin(){
     const msg = "Hello Muscle Up Gym Admin, I need assistance.";
-    const url = `https://wa.me/919306907839?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
+    window.open(`https://wa.me/919306907839?text=${encodeURIComponent(msg)}`, "_blank");
 }
 
 function joinPlan(plan, price){
-    const msg = `Hello Muscle Up Gym, I want to join the ${plan} plan (${price}). Please guide me further.`;
-    const url = `https://wa.me/919306907839?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
+    const msg = `Hello Muscle Up Gym, I want to join the ${plan} plan (${price}).`;
+    window.open(`https://wa.me/919306907839?text=${encodeURIComponent(msg)}`, "_blank");
 }
-
 </script>
-
 
 <a href="https://wa.me/919306907839" 
    class="whatsapp-float" 
@@ -1560,11 +1858,13 @@ function joinPlan(plan, price){
 
 <section id="adminPanel" style="display:none; padding:100px 40px; background:#000; min-height:100vh;">
 
-```
+
 <h2 style="color:var(--green); text-align:center; margin-bottom:20px;">
     Admin Dashboard
 </h2>
-
+<a href="admin-approval.html">
+  <button>Payment Approvals</button>
+</a>
 <div style="text-align:center; margin-bottom:30px;">
     <button class="btn" onclick="closeAdmin()">Back to Website</button>
 </div>
@@ -1590,8 +1890,22 @@ function joinPlan(plan, price){
         </thead>
         <tbody id="usersTable"></tbody>
     </table>
+    <h3 style="color:var(--green); margin-top:40px;">
+    Password Reset Requests
+</h3>
+
+<table style="width:100%; border-collapse:collapse; background:#111; margin-top:10px;">
+    <thead>
+        <tr style="background:var(--green); color:black;">
+            <th style="padding:10px;">Email</th>
+            <th style="padding:10px;">Date</th>
+            <th style="padding:10px;">Action</th>
+        </tr>
+    </thead>
+    <tbody id="resetTable"></tbody>
+</table>
 </div>
-```
+
 
 </section>
 <!-- ================= END ADMIN PANEL ================= -->
@@ -1652,158 +1966,9 @@ function joinPlan(plan, price){
         <p id="serviceDesc"></p>
     </div>
 </div>
-<script>
-/* ===============================
-   MUSCLE UP LOGIN SYSTEM
-   (Single Clean Version)
-================================*/
-
-/* ---------- USER STORAGE ---------- */
-function getUsers(){
-    return JSON.parse(localStorage.getItem("gymUsers")) || [];
-}
-
-function saveUsers(users){
-    localStorage.setItem("gymUsers", JSON.stringify(users));
-}
-
-/* ---------- MODAL CONTROL ---------- */
-function openRegister(){
-    document.getElementById("registerModal").style.display = "flex";
-}
-
-function closeRegister(){
-    document.getElementById("registerModal").style.display = "none";
-}
-
-function openLogin(){
-    document.getElementById("loginModal").style.display = "flex";
-}
-
-function closeLogin(){
-    document.getElementById("loginModal").style.display = "none";
-}
-
-/* ---------- REGISTER ---------- */
-function registerUser(){
-
-    let name = document.getElementById("regName").value.trim();
-    let email = document.getElementById("regEmail").value.trim();
-    let password = document.getElementById("regPassword").value.trim();
-
-    if(!name || !email || !password){
-        alert("Please fill all fields");
-        return;
-    }
-
-    let users = getUsers();
-
-    // Check if already registered
-    let exists = users.find(user => user.email === email);
-    if(exists){
-        alert("User already registered. Please login.");
-        return;
-    }
-
-    users.push({
-        name: name,
-        email: email,
-        password: password
-    });
-
-    saveUsers(users);
-
-    alert("Registration Successful! Please login.");
-
-    // Clear fields
-    document.getElementById("regName").value = "";
-    document.getElementById("regEmail").value = "";
-    document.getElementById("regPassword").value = "";
-
-    closeRegister();
-}
-
-/* ---------- LOGIN ---------- */
-function loginUser(){
-
-    let email = document.getElementById("loginEmail").value.trim();
-    let password = document.getElementById("loginPassword").value.trim();
-
-    let users = getUsers();
-
-    let user = users.find(u => u.email === email && u.password === password);
-
-    if(user){
-
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
-
-        document.getElementById("navButtons").style.display = "none";
-        document.getElementById("userPanel").style.display = "flex";
-        document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
-
-        alert("Welcome " + user.name + "!");
-        closeLogin();
-
-        // Clear fields
-        document.getElementById("loginEmail").value = "";
-        document.getElementById("loginPassword").value = "";
-
-    }else{
-        alert("Invalid email or password");
-    }
-}
-
-/* ---------- LOGOUT ---------- */
-function logoutUser(){
-    localStorage.removeItem("loggedInUser");
-
-    document.getElementById("userPanel").style.display = "none";
-    document.getElementById("navButtons").style.display = "flex";
-}
-
-/* ---------- AUTO LOGIN AFTER REFRESH ---------- */
-window.onload = function(){
-
-    let user = JSON.parse(localStorage.getItem("loggedInUser"));
-
-    if(user){
-        document.getElementById("navButtons").style.display = "none";
-        document.getElementById("userPanel").style.display = "flex";
-        document.getElementById("welcomeUser").innerText = "Welcome, " + user.name;
-    }
-}
-/* ================= ADMIN PANEL FUNCTIONS ================= */
-
-function openAdmin(){
-document.getElementById("adminPanel").style.display = "block";
-document.body.scrollTop = 0;
-document.documentElement.scrollTop = 0;
-loadAdminData();
-}
-
-function closeAdmin(){
-document.getElementById("adminPanel").style.display = "none";
-}
-
-function loadAdminData(){
-    let users = JSON.parse(localStorage.getItem("gymUsers")) || [];
-
-    // Total Users
-    document.getElementById("totalUsers").innerText = users.length;
-
-    // Table
-    let table = document.getElementById("usersTable");
-    table.innerHTML = "";
-
-    users.forEach(user => {
-        let row = `<tr style="border-bottom:1px solid #222;"><td style="padding:10px; text-align:center;">${user.name}</td><td style="padding:10px; text-align:center;">${user.email}</td></tr>`;
-        table.innerHTML += row;
-    });
-}
-
-</script>
 
 
 </body>
+</html>
 
 </html>
