@@ -1749,20 +1749,26 @@ function updateNavbar(){
     }
 }
 
-/* ---------- CHECK LOGIN FOR PLANS ---------- */
 function checkLoginAndOpen(plan, price){
 
     let user = JSON.parse(localStorage.getItem("loggedInUser"));
 
     if(!user){
         alert("Please login first to join membership.");
-        openLogin();
+
+        // Save selected plan temporarily
+        localStorage.setItem("selectedPlan", JSON.stringify({
+            plan: plan,
+            price: price
+        }));
+
+        openLogin();   // existing loginUser function ko hi use karega
         return;
     }
 
+    // If already logged in
     openAdmission(plan, price);
 }
-
 /* ---------- ADMISSION SYSTEM ---------- */
 function getAdmissions(){
     return JSON.parse(localStorage.getItem("gymAdmissions")) || [];
@@ -1831,9 +1837,17 @@ function confirmPayment(){
     document.getElementById("admPhone").value="";
 }
 
-/* ---------- AUTO LOAD ---------- */
 window.onload = function(){
     updateNavbar();
+
+    // Check if user logged in and selected plan earlier
+    let savedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if(user && savedPlan){
+        openAdmission(savedPlan.plan, savedPlan.price);
+        localStorage.removeItem("selectedPlan");
+    }
 }
 
 /* ---------- WHATSAPP ---------- */
@@ -1966,9 +1980,5 @@ function joinPlan(plan, price){
         <p id="serviceDesc"></p>
     </div>
 </div>
-
-
 </body>
-</html>
-
 </html>
