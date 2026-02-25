@@ -134,6 +134,127 @@ button:hover{
     text-align:center;
     margin-top:20px;
 }
+/* ===== BODY ===== */
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#000;
+    color:white;
+}
+
+/* ===== SECTION TITLE ===== */
+.membership-title{
+    text-align:center;
+    font-size:32px;
+    color:#00ff66;
+    margin-bottom:30px;
+    text-shadow:0 0 10px #00ff66;
+}
+
+/* ===== PLAN CONTAINER ===== */
+.plan-container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+/* ===== PLAN CARD ===== */
+.plan-card{
+    background:#0a0a0a;
+    width:260px;
+    padding:30px;
+    border-radius:15px;
+    border:2px solid #00ff66;
+    text-align:center;
+    transition:0.3s;
+    box-shadow:0 0 15px rgba(0,255,102,0.2);
+}
+
+.plan-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px #00ff66;
+}
+
+/* PLAN TEXT */
+.plan-card h3{
+    margin-bottom:10px;
+}
+
+.plan-price{
+    font-size:24px;
+    margin:10px 0;
+    color:#00ff66;
+}
+
+/* ===== BUTTON ===== */
+.pay-btn{
+    padding:10px 25px;
+    background:#00ff66;
+    border:none;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.pay-btn:hover{
+    background:#00cc55;
+    box-shadow:0 0 10px #00ff66;
+}
+
+/* ===== MODAL ===== */
+.payment-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.payment-box{
+    background:#000;
+    padding:30px;
+    border-radius:15px;
+    border:2px solid #00ff66;
+    text-align:center;
+    box-shadow:0 0 20px #00ff66;
+    animation:popup 0.3s ease;
+}
+
+@keyframes popup{
+    from{transform:scale(0.8); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+.payment-box img{
+    width:250px;
+    margin:20px 0;
+}
+
+.confirm-btn{
+    padding:10px 25px;
+    background:#00ff66;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.cancel-btn{
+    margin-top:10px;
+    background:none;
+    border:none;
+    color:#aaa;
+    cursor:pointer;
+}
+
+.cancel-btn:hover{
+    color:white;
+}
 </style>
 
 </head>
@@ -192,7 +313,56 @@ button:hover{
 
 
 </div>
+<section style="padding:40px;">
 
+    <h2 class="membership-title">Choose Your Membership Plan</h2>
+
+    <div class="plan-container">
+
+        <div class="plan-card">
+            <h3>Monthly Plan</h3>
+            <p class="plan-price">₹1000</p>
+            <button class="pay-btn" onclick="startPayment('1 month Plan','1000')">Pay Now</button>
+        </div>
+
+        <div class="plan-card">
+            <h3>3 Months Package</h3>
+            <p class="plan-price">₹2500</p>
+            <button class="pay-btn" onclick="startPayment('3 Months plan','2500')">Pay Now</button>
+        </div>
+
+        <div class="plan-card">
+            <h3>Annual Package</h3>
+            <p class="plan-price">₹10000</p>
+            <button class="pay-btn" onclick="startPayment('12 months plan','10000')">Pay Now</button>
+        </div>
+
+    </div>
+
+</section>
+<div id="dashboardPaymentModal" class="payment-modal">
+
+  <div class="payment-box">
+
+    <h2 style="color:#00ff66;">Complete Payment</h2>
+
+    <img id="paymentQR">
+
+    <p>Scan with Google Pay / PhonePe / Paytm</p>
+
+    <button class="confirm-btn" onclick="confirmDashboardPayment()">
+        I Have Paid
+    </button>
+
+    <br>
+
+    <button class="cancel-btn" onclick="closeDashboardPayment()">
+        Cancel
+    </button>
+
+  </div>
+
+</div>
 <script>
 // Login Check
 let user = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -213,7 +383,63 @@ if(userAdmission){
 }else{
     document.getElementById("memberPlan").innerText = "Plan: Not selected";
 }
+function startPayment(plan, amount){
 
+    let user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if(!user){
+        alert("Session expired. Please login again.");
+        window.location.href = "index.html";
+        return;
+    }
+
+    // Generate dynamic UPI QR
+    let upiLink = `upi://pay?pa=sharmaparteek302@okaxis&pn=Muscle%20Up%20Gym&am=${amount}&cu=INR`;
+
+    let qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
+
+    document.getElementById("paymentQR").src = qrURL;
+
+    // Save temp payment info
+    localStorage.setItem("pendingDashboardPayment", JSON.stringify({
+        name: user.name,
+        email: user.email,
+        plan: plan,
+        amount: amount,
+        date: new Date().toLocaleDateString(),
+        status: "Pending"
+    }));
+
+    document.getElementById("dashboardPaymentModal").style.display = "flex";
+}
+
+function closeDashboardPayment(){
+    document.getElementById("dashboardPaymentModal").style.display = "none";
+}
+
+function confirmDashboardPayment(){
+
+    let payment = JSON.parse(localStorage.getItem("pendingDashboardPayment"));
+
+    if(!payment){
+        alert("No payment found.");
+        return;
+    }
+
+    let admissions = JSON.parse(localStorage.getItem("gymAdmissions")) || [];
+
+    payment.id = Date.now();
+
+    admissions.push(payment);
+
+    localStorage.setItem("gymAdmissions", JSON.stringify(admissions));
+
+    localStorage.removeItem("pendingDashboardPayment");
+
+    alert("Payment submitted successfully! Waiting for admin approval.");
+
+    closeDashboardPayment();
+}
 // Logout
 function logout(){
     localStorage.removeItem("loggedInUser");
